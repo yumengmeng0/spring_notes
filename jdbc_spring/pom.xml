@@ -5,10 +5,32 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>org.example</groupId>
-    <artifactId>spring_notes</artifactId>
-    <packaging>pom</packaging>
+    <artifactId>jdbc_spring</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+
+    <dependencies>
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.29</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+    </dependencies>
 
     <!--    解决IDEA自动重置LanguageLevel和JavaCompiler版本的问题-->
     <build>
@@ -24,10 +46,6 @@
             </plugin>
         </plugins>
     </build>
-    <modules>
-        <module>dom4j_notes</module>
-        <module>spring_quickstart</module>
-    </modules>
 
 
 </project>

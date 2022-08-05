@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+            http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <bean id="user" class="domain.User">
+        <!--
+            ref：引用数据类型
+            value：普通数据类型
+        -->
+        <property name="age" value="18"></property>
+        <property name="username" value="张三"></property>
+        <!--        集合注入-->
+        <property name="list">
+            <list>
+                <value>aaa</value>
+                <value>18</value>
+                <ref bean="userDao"></ref>
+            </list>
+        </property>
+        <property name="array">
+            <array>
+                <value>111</value>
+                <value>222</value>
+                <value>222</value>
+            </array>
+        </property>
+        <property name="map">
+            <map>
+                <entry key="key" value="value"></entry>
+            </map>
+        </property>
+        <property name="properties">
+            <props>
+                <prop key="k1">v1</prop>
+            </props>
+        </property>
+    </bean>
+    <!--
+        id：
+        class：
+        scope：
+        init-method：
+        destroy-method：
+    -->
+    <!--    方式1：无参构造-->
+    <bean id="userDao" class="dao.impl.UserDaoImpl" scope="singleton" init-method="init"
+          destroy-method="destroy">
+    </bean>
+    <!--    <bean id="userDao2" class="dao.impl.UserDaoImpl2" scope="prototype"></bean>-->
+    <!--    方式2：工厂静态方法-->
+    <!--    <bean id="userDao" class="factory.StaticFactoryBean" factory-method="createUserDao" ></bean>-->
+    <!--    方法3：工厂普通方法-->
+    <!--&lt;!&ndash;    <bean id="dynamicFactoryBean" class="factory.DynamicFactoryBean"></bean>&ndash;&gt;-->
+    <!--    <bean id="userDao" class="dao.impl.UserDaoImpl" factory-bean="dynamicFactoryBean" factory-method="createUserDao"></bean>-->
+
+
+    <!--    方法3：p命名空间依赖注入-->
+    <bean id="userService" class="service.impl.UserServiceImpl" p:userDao-ref="userDao">
+        <!--        方法1：构造方法依赖注入-->
+        <!--        <constructor-arg index="0" type="dao.IUserDao" ref="userDao"></constructor-arg>-->
+        <!--        <constructor-arg name="userDao" ref="userDao"></constructor-arg>-->
+        <!--        方法2：set方法依赖注入
+                    必须有无参构造 -->
+        <!--        <property name="userDao" ref="userDao"></property>-->
+
+    </bean>
+
+
+</beans>
