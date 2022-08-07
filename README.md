@@ -141,5 +141,106 @@ scope属性是对象的作用范围
 * Set
 * Array
 * Map
-* Properties 
- 
+* Properties
+
+
+## 5.8 配置文件模块化
+    * 按层拆分（dao、service）
+    * 按业务模块拆分（user、product）
+
+配置文件模块化：
+1. 并列多个配置文件
+```java
+
+ApplicationContext context = new ClassPathXmlApplicationContext("bean1.xml", "bean2.xml", ...);
+
+```
+2. 主从配置文件 
+ ```xml
+    <import resource="classpath:application-xxx.xml"></import> 
+ ```
+    注意：
+        同一个xml中不能出现相同名称的bean，否则会报错
+        多个xml出现相同名称的bean，不会保存，后加载的会覆盖前加载的bean
+        
+# 6. DbUtils
+DbUtils是Apache的一款用于简化Dao代码的工具类，它底层封装了JDBC技术。  
+
+核心对象：
+
+    QueryRunner queryRunner = new QueryRunner(DataSource dataSource);
+    
+核心方法：
+    
+    int update()：执行增删改语句
+    T query()：执行查询语句
+    ResultSetHandler<T>将数据库返回的对象封装到实体的接口
+    
+## [6.2 Spring的xml整合DbUtils](./spring_dbutils)
+
+# 七、Spring注解开发
+
+## 7.1 Spring常用注解
+
+### 7.1.1 介绍
+Spring常用注解主要替代<bean>的配配置
+
+| 注解 | 说明 |
+| --- | --- |
+| @Component | 使用在类上，用于实例化Bean |
+| @Controller | 使用在Web层类上，用于实例化Bean |
+| @Service | 使用在Service层类上，用于实例化Bean |
+| @Repository | 使用在dao层类上，用于实例化类 |
+| @AutoWired | 使用在字段上，用于根据类型依赖注入 |
+| @Qualifier | 结合@Autowired一起使用（不能单独使用），根据名称进行依赖注入 |
+| @Resource | 相当于@AutoWired+@Qualifier，按照名称进行注入 |
+| @Value | 注入普通属性 |
+| @Scope | 标注Bean的作用范围 |
+| @PostConstruct | 使用在方法上，标注该方法是Bean的初始方法 |
+| @PreDestroy | 使用在方法上，标注该方法是Bean的销毁方法 |
+
+    @Component、@Controller、@Service、@Repository作用相同，相当于配置<bean>，生成实例对象，存到IOC容器
+    @Autowired、@Qualifier、@Resource、@Value相当于配置<property>，要进行依赖注入
+    
+jdk11之后完全移除了javax扩展，需要引入才能使用@Resource
+```xml
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+```
+
+注意：使用注解开发，需要在applicationContext.xml中配置组件扫描，指定哪个包及其子包下的Bean进行扫描，
+以便识别使用注解配置的类、字段和方法。
+
+```xml
+<context:component-scan base-package="package-name"></context:component-scan>
+```      
+
+## 7.3 Spring新注解
+使用上面注解还不能全部替代xml配置文件，需要使用注解替代的的配置：
+    * 非自定义的Bean配置  
+    * 加载properties文件的配置：\<context:properties-placeholder>  
+    * 组件扫描的配置：\<context:component-scan>
+    * 引入其他文件：<import>
+   
+
+| 注解 | 说明 |
+| --- | --- |
+| @Configuration | 指定当前类是一个Spring配置类，当创建容器时会从该类上加载注解 |
+| @Bean | 使用在方法上，标注该方法的返回值存储到Spring容器 |
+| @PropertySource | 加载properties文件中的配置 |
+| @ComponentScan | 指定Spring在初始化容器时要扫描的包 |
+| @Import | 导入其他配置类 |
+
+# 八、Spring整合Junit
+
+    1.导入Spring继承Junit左表
+    2.使用@RunWith注解替换原理的运行器
+    3.使用@ContextConfiguration指定配置文件类
+    4.使用@Autowired注入要测试的对象
+    5.创建测试方法 
+
+
+

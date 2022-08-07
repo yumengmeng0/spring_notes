@@ -81,7 +81,7 @@ public class SpringTest {
 
     @Test
     public void user(){
-        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml");
+        ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("applicationContext.xml","applicationContext-dao.xml");
         User user = (User) context.getBean("user");
         System.out.println("user = " + user);
     }

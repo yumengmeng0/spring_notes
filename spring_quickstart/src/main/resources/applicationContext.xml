@@ -69,5 +69,6 @@
 
     </bean>
 
+    <import resource="classpath:applicationContext-user.xml"></import>
 
 </beans>
