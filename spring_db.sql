@@ -8,4 +8,7 @@ CREATE TABLE account(
 	PRIMARY KEY(id) 
 );
 
-INSERT INTO account(id, NAME, money) vlues(1, 'tom', 1000), (2,'jerry', 1000);
+INSERT INTO account(id, NAME, money) VALUES(1, 'tom', 1000), (2,'jerry', 1000);
+
+
+UPDATE account SET money = money - 100.0 WHERE id = '1';
