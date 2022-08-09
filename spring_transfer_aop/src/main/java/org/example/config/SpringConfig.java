@@ -15,6 +15,7 @@ import javax.sql.DataSource;
 @Configuration
 @ComponentScan("org.example")
 @Import(DataSourceConfig.class)
+@EnableAspectJAutoProxy
 public class SpringConfig {
 
     @Bean("queryRunner")

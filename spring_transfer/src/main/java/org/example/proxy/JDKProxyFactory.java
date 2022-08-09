@@ -47,27 +47,32 @@ public class JDKProxyFactory {
             @Override
             public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
 
-                try {
-                    // 手动开启事务：调用事务管理器类中的开启事务方法
-                    transactionManager.beginTransaction();
 
-                    method.invoke(accountService, args); // 被代理对象的原方法执行
+                if (method.getName().equals("transfer")) {
+                    try {
+                        System.out.println("前置增强");
+                        // 手动开启事务：调用事务管理器类中的开启事务方法
+                        transactionManager.beginTransaction();
 
-                    // 手动提交事务
-                    transactionManager.commit();
-                    System.out.println("commit");
-                } catch (Exception e) {
-                    e.printStackTrace();
-                    // 手动回滚事务
-                    transactionManager.rollback();
-                    System.out.println("rollback");
-                } finally {
-                    // 释放资源
-                    transactionManager.release();
-                    System.out.println("release");
+                        method.invoke(accountService, args); // 被代理对象的原方法执行
+                        System.out.println("后置增强");
+
+                        // 手动提交事务
+                        transactionManager.commit();
+                        System.out.println("commit");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        // 手动回滚事务
+                        transactionManager.rollback();
+                        System.out.println("rollback");
+                    } finally {
+                        // 释放资源
+                        transactionManager.release();
+                        System.out.println("release");
+                    }
+                }else {
+                    method.invoke(accountService, args);
                 }
-
-
                 return null;
             }
         });

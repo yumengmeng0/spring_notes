@@ -36,9 +36,10 @@ public class AccountTest {
     }
 
     @Test
-    public void transferProxy() {
+    public void transferJDKProxy() {
         AccountService accountServiceJDKProxy = jdkProxyFactory.createAccountServiceJDKProxy();
-        accountServiceJDKProxy.transfer("1", "2", 100d);
+//        accountServiceJDKProxy.transfer("1", "2", 100d);
+        accountServiceJDKProxy.save();
     }
 
     @Test

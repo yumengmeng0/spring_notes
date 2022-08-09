@@ -51,4 +51,19 @@ public class AccountServiceImplWithoutProxy implements AccountService {
         }
 
     }
+
+    @Override
+    public void save() {
+
+    }
+
+    @Override
+    public void update() {
+
+    }
+
+    @Override
+    public void delete() {
+
+    }
 }

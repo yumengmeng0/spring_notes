@@ -1,6 +1,5 @@
 package org.example.proxy;
 
-import org.example.domain.Account;
 import org.example.service.AccountService;
 import org.example.utils.TransactionManager;
 import org.springframework.beans.factory.annotation.Autowired;
