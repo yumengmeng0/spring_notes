@@ -12,3 +12,6 @@ INSERT INTO account(id, NAME, money) VALUES(1, 'tom', 1000), (2,'jerry', 1000);
 
 
 UPDATE account SET money = money - 100.0 WHERE id = '1';
+
+
+ALTER TABLE account DEFAULT CHARACTER SET utf8;
